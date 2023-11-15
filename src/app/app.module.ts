@@ -4,13 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { BotonesAdminComponent } from './botones/botones-admin/botones-admin.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { BotonesComponent } from './header/botones/botones/botones.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    BotonesAdminComponent
+    NavigationComponent,
+    BotonesComponent
   ],
   imports: [
     BrowserModule,
