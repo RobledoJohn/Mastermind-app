@@ -3,24 +3,39 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Samsung_logo_blue.png" alt="logotipo">
         </div>
         <ul class="botonesList">
-            <li class="botonMenu" href="../views/HomeView.vue">
-                <i class="bi bi-house"></i>Inicio</li>
-            <li class="botonMenu">
+
+            <router-link :to="{path:'/ordenes'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-list-check"></i>Ordenes</li>
-            <li class="botonMenu">
+            </router-link>
+            <router-link :to="{path:'/inventario'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-box-seam"></i>Inventario</li>
-            <li class="botonMenu">
+            </router-link>
+            <router-link :to="{path:'/proveedores'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-truck"></i>Proveedores</li>
-            <li class="botonMenu">
+            </router-link>
+            <router-link :to="{path:'/servicios'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-briefcase"></i>Servicios</li>
-            <li class="botonMenu">
+            </router-link>
+            <router-link :to="{path:'/ventas'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-wallet2"></i>Ventas</li>
-            <li class="botonMenu">
+            </router-link>
+            <router-link :to="{path:'/clientes'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-person"></i>Clientes</li>
-            <li class="botonMenu">
+            </router-link>
+            <router-link :to="{path:'/tecnicos'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-person-rolodex"></i>Técnicos</li>
-            <li class="botonMenu">
+            </router-link>
+            <router-link :to="{path:'/misEquipos'}" class="botonMenu">
+                <li class="boton">
                 <i class="bi bi-display"></i>Mis Equipos</li>
+            </router-link>
         </ul>
 </template>
 <style scoped>
@@ -46,9 +61,8 @@ ul{
     flex-direction: column;
     align-items: center;
 }
-i{
+.icono{
     font-size: 20px;
-    color: black;
 }
 .botonesList{
     gap: 10px;
@@ -62,10 +76,21 @@ i{
     align-items: center;
     padding: 10px;
     gap: 5px;
-    border: solid #d9d9d9 1px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    list-style: none;
+    color: black;
+    
 }
+.boton{
+        display: flex;
+        align-items: center;
+        i{
+            margin-right: 10px;
+            font-size: 20px;
+        }
+    }
 .botonMenu:hover{
     background-color: #06BCC1;
 }

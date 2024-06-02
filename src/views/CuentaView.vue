@@ -34,7 +34,29 @@
             <button class="btn btn-primary m-2">Guardar</button>
         </div>    
         <div>
-            <input type="text">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nit</th>
+                        <th>Email</th>
+                        <th>Clave</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="empre, i in empresas" :key="empre.id">
+                        <td>{{(i+1)}}</td>
+                        <td>{{empre.nombre}}</td>
+                        <td>{{empre.nit}}</td>
+                        <td>{{empre.email}}</td>
+                        <td>{{empre.clave}}</td>
+                        <td>{{empre.direccion}}</td>
+                        <td>{{empre.telefono}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
@@ -53,29 +75,24 @@
 
 <script>
 import axios from 'axios';
+
 export default{
     data(){
-        return{
-            nombre: '',
-            nit: '',
-            email: '',
-            clave: '',
-            direccion: '',
-            telefono: ''
-        }
+        return{empresas: null}
+    },
+    mounted(){
+        this.getEmpresas();
     },
     methods:{
-        async guardar(){
-            const data = {
-                nombre: this.nombre,
-                nit: this.nit,
-                email: this.email,
-                clave: this.clave,
-                direccion: this.direccion,
-                telefono: this.telefono
+        async getEmpresas(){
+            try{
+                axios.get('http://localhost:8000/api/empresas')
+                .then(response =>{
+                    this.empresas = response.data;
+                });
+            }catch(error){
+                console.log(error);
             }
-            const res = await axios.post('http://localhost:3000/cuenta', data);
-            console.log(res);
         }
     }
 }

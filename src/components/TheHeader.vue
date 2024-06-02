@@ -1,10 +1,19 @@
 <template>
   <nav>
     <img class="d-inline-block mx-2" src="../assets/mastermind-lateral-w.png" alt="Logo" height="50">
-    <div class="icons">        
-        <i class="bi bi-buildings"></i>
-        <i class="bi bi-person-circle"></i>
-        <i class="bi bi-box-arrow-right"></i>
+    <div class="icons"> 
+        <router-link :to="{path:'/'}" class="botonMenu">
+            <i class="bi bi-house"></i>
+        </router-link>    
+        <router-link :to="{path:'/empresa'}" class="botonMenu">
+          <i class="bi bi-buildings"></i>
+        </router-link>    
+        <router-link :to="{path:'/cuenta'}" class="botonMenu">
+          <i class="bi bi-person-circle"></i>
+        </router-link>    
+        <router-link :to="{path:'/logout'}" class="botonMenu">
+          <i class="bi bi-box-arrow-right"></i>
+        </router-link>
     </div>
   </nav>
 </template>
