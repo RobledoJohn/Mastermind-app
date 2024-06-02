@@ -19,6 +19,8 @@
                 <i class="bi bi-person"></i>Clientes</li>
             <li class="botonMenu">
                 <i class="bi bi-person-rolodex"></i>Técnicos</li>
+            <li class="botonMenu">
+                <i class="bi bi-display"></i>Mis Equipos</li>
         </ul>
 </template>
 <style scoped>
