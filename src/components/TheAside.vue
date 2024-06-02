@@ -3,7 +3,7 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Samsung_logo_blue.png" alt="logotipo">
         </div>
         <ul class="botonesList">
-            <li class="botonMenu">
+            <li class="botonMenu" href="../views/HomeView.vue">
                 <i class="bi bi-house"></i>Inicio</li>
             <li class="botonMenu">
                 <i class="bi bi-list-check"></i>Ordenes</li>

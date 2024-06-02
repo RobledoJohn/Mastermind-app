@@ -7,7 +7,7 @@
   <header>
     <TheHeader />
   </header>
-  <div class="container">
+  <div class="contenedor">
     <Aside class="asidewebapp">
       <TheAside />
     </Aside>
@@ -15,17 +15,19 @@
       <router-view />
     </main>
   </div>
-  
-
 </template>
 
 <style scoped>
-.container{
-  font-family: "Inter", sans-serif;
-  display: flex;
+
+root{
   margin: 0;
   padding: 0;
-  height: 100vh;
+}
+.contenedor{
+  font-family: "Inter", sans-serif;
+  display: flex;
+  height: 90vh;
+  width: 100%;
 }
 .asidewebapp{
   background-color: #ffffff;

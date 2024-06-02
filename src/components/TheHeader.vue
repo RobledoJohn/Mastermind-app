@@ -32,5 +32,4 @@ nav{
     color: white;
   }
 }
-  
-  </style>
+</style>
