@@ -11,7 +11,7 @@
             
         </div>
         <table class="table">
-            <thead>
+            <thead class="table">
             <tr>
             <th scope="col">Orden</th>
             <th scope="col">Cliente</th>
@@ -74,7 +74,6 @@
         background-color: #06BCC1;
     }
 }
-
 .eye{
     font-size: 20px;
     color: #06BCC1;
