@@ -1,5 +1,4 @@
 <template>
-    <h1 style="color: red;">SERVICIOS NO SALEN EN DB</h1>
     <div class="baseTable">
         <div class="buscadorContenedor">
             <input class="buscador" placeholder="Buscar">
@@ -13,11 +12,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>SKU</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
-                    <th>Costo</th>
-                    <th>Fecha</th>
+                    <th>Categoria</th>
                     <th>Opciones</th>
                 </tr>
             </thead>

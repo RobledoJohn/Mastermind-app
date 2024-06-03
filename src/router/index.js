@@ -5,6 +5,7 @@ import ordenes from '../views/OrdenesView.vue'
 import inventario from '../views/InventarioView.vue'
 import proveedores from '../views/ProveedoresView.vue'
 import servicios from '../views/ServiciosView.vue'
+import ventas from '../views/VentasView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/servicios',
       name: 'servicios',
       component: servicios
+    },
+    {
+      path: '/ventas',
+      name: 'ventas',
+      component: ventas
     }
   ]
 })

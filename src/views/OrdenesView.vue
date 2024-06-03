@@ -19,7 +19,7 @@
             <th scope="col">Técnico</th>
             <th scope="col">Estado</th>
             <th scope="col">Fecha</th>
-            <th scope="col">Ver más</th>
+            <th scope="col">Opciones</th>
             </tr>
         </thead>
         <tbody>
