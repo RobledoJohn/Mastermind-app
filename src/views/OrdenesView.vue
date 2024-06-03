@@ -1,6 +1,5 @@
 <template> 
     <div class="baseTable">
-        
         <div class="buscadorContenedor">
             <input class="buscador" placeholder="Buscar Orden">
         </div>
@@ -8,7 +7,6 @@
             <router-link :to="{path:'/crearOrden'}">
                 <button class="btn">Agregar</button>
             </router-link>
-            
         </div>
         <table class="table">
             <thead class="table">
@@ -38,6 +36,7 @@
             </tr>
         </tbody>
         </table>
+        <h1 style="color: red;">SERVICIOS sin asignar</h1>
     </div>
 </template>
 

@@ -4,7 +4,6 @@ import cuenta from '../views/CuentaView.vue'
 import empresa from '../views/EmpresaView.vue'
 import ordenes from '../views/OrdenesView.vue'
 import inventario from '../views/InventarioView.vue'
-import servicios from '../views/ServiciosView.vue'
 import ventas from '../views/VentasView.vue'
 import tecnicos from '../views/TecnicosView.vue'
 import misEquipos from '../views/MisEquiposView.vue'
@@ -36,11 +35,6 @@ const router = createRouter({
       path: '/inventario',
       name: 'inventario',
       component: inventario
-    },
-    {
-      path: '/servicios',
-      name: 'servicios',
-      component: servicios
     },
     {
       path: '/ventas',
