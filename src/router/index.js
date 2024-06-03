@@ -6,6 +6,8 @@ import inventario from '../views/InventarioView.vue'
 import proveedores from '../views/ProveedoresView.vue'
 import servicios from '../views/ServiciosView.vue'
 import ventas from '../views/VentasView.vue'
+import tecnicos from '../views/TecnicosView.vue'
+import misEquipos from '../views/MisEquiposView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,7 +46,18 @@ const router = createRouter({
       path: '/ventas',
       name: 'ventas',
       component: ventas
+    },
+    {
+      path: '/tecnicos',
+      name: 'tecnicos',
+      component: tecnicos
+    },
+    {
+      path: '/misEquipos',
+      name: 'misEquipos',
+      component: misEquipos
     }
+
   ]
 })
 

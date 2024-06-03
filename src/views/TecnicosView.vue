@@ -3,14 +3,18 @@
         <div class="buscadorContenedor">
             <input class="buscador" placeholder="Buscar">
         </div>
+        <div class="botonOrden">
+            <router-link :to="{path:'/creaTecnico'}">
+                <button class="btn">Agregar</button>
+            </router-link>
+        </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th>SKU</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Categoria</th>
-                    <th>Opciones</th>
+                    <th>Avatar</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
                 </tr>
             </thead>
             <tbody>

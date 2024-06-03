@@ -1,5 +1,5 @@
 <template> 
-    <div class="ordenesTable">
+    <div class="baseTable">
         
         <div class="buscadorContenedor">
             <input class="buscador" placeholder="Buscar Orden">

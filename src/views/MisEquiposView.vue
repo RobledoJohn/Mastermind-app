@@ -3,12 +3,19 @@
         <div class="buscadorContenedor">
             <input class="buscador" placeholder="Buscar">
         </div>
+        <div class="botonOrden">
+            <router-link :to="{path:'/creaItem'}">
+                <button class="btn">Agregar</button>
+            </router-link>
+            
+        </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th>SKU</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
+                    <th>ID</th>
+                    <th>IMEI</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
                     <th>Categoria</th>
                     <th>Opciones</th>
                 </tr>
