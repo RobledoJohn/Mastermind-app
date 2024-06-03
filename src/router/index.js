@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import home from '../views/HomeView.vue'
 import cuenta from '../views/CuentaView.vue'
+import empresa from '../views/EmpresaView.vue'
 import ordenes from '../views/OrdenesView.vue'
 import inventario from '../views/InventarioView.vue'
 import proveedores from '../views/ProveedoresView.vue'
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/cuenta',
       name: 'cuenta',
       component: cuenta
+    },
+    {
+      path: '/empresa',
+      name: 'empresa',
+      component: empresa
     },
     {
       path: '/ordenes',

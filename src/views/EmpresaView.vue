@@ -1,5 +1,5 @@
 <template>
-    <h1>cuenta</h1>
+    <h1>Empresa</h1>
     <div class="baseTable">
         <form class="p-3 d-flex gap-5">
                 <div>
@@ -37,13 +37,7 @@
 </template>
 
 <style>
-.cuenta{
-    display: flex;
-    flex-direction: row;
-    background-color: grey;
-    align-items: center;
-}
-.imgCuenta{
-    width: 600px;
-}
 </style>
+
+<script>
+</script>
