@@ -5,8 +5,8 @@
             <input class="buscador" placeholder="Buscar Orden">
         </div>
         <div class="botonOrden">
-            <router-link :to="{path:'/crearOrdenes'}">
-                <button class="btn">Crear Orden</button>
+            <router-link :to="{path:'/crearOrden'}">
+                <button class="btn">Agregar</button>
             </router-link>
             
         </div>
@@ -42,7 +42,7 @@
 </template>
 
 <style>
-.ordenesTable{
+.baseTable{
     display: flex;
     flex-direction: column;
     gap: 10px;

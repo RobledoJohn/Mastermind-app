@@ -1,4 +1,5 @@
 <template>
+    <h1 style="color: red;">PROVEEDORES NO SALEN EN DB</h1>
     <div class="baseTable">
         <div class="buscadorContenedor">
             <input class="buscador" placeholder="Buscar">
