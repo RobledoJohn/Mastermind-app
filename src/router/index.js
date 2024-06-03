@@ -4,6 +4,7 @@ import cuenta from '../views/CuentaView.vue'
 import ordenes from '../views/OrdenesView.vue'
 import inventario from '../views/InventarioView.vue'
 import proveedores from '../views/ProveedoresView.vue'
+import servicios from '../views/ServiciosView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/proveedores',
       name: 'proveedores',
       component: proveedores
+    },
+    {
+      path: '/servicios',
+      name: 'servicios',
+      component: servicios
     }
   ]
 })
