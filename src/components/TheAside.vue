@@ -12,10 +12,6 @@
                 <li class="boton">
                 <i class="bi bi-box-seam"></i>Inventario</li>
             </router-link>
-            <router-link :to="{path:'/proveedores'}" class="botonMenu">
-                <li class="boton">
-                <i class="bi bi-truck"></i>Proveedores</li>
-            </router-link>
             <router-link :to="{path:'/servicios'}" class="botonMenu">
                 <li class="boton">
                 <i class="bi bi-briefcase"></i>Servicios</li>
