@@ -36,7 +36,6 @@
             </tr>
         </tbody>
         </table>
-        <h1 style="color: red;">SERVICIOS sin asignar</h1>
     </div>
 </template>
 
@@ -80,6 +79,7 @@
 </style>
 
 <script>
+
 import axios from 'axios';
 
 export default{

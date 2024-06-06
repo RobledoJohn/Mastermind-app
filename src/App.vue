@@ -15,6 +15,7 @@
       <router-view />
     </main>
   </div>
+  
 </template>
 
 <style scoped>
