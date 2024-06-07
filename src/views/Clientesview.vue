@@ -7,7 +7,6 @@
             <router-link :to="{path:'/creaItem'}">
                 <button class="btn">Agregar</button>
             </router-link>
-            
         </div>
         <table class="table">
             <thead>
