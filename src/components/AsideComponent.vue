@@ -1,9 +1,9 @@
 <template>
+    <aside class="asidewebapp">
         <div class="logotipo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Samsung_logo_blue.png" alt="logotipo">
         </div>
         <ul class="botonesList">
-
             <router-link :to="{path:'/ordenes'}" class="botonMenu">
                 <li class="boton">
                 <i class="bi bi-list-check"></i>Ordenes</li>
@@ -29,8 +29,17 @@
                 <i class="bi bi-display"></i>Mis Equipos</li>
             </router-link>
         </ul>
+    </aside>
 </template>
 <style scoped>
+.asidewebapp{
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 250px;
+}
 .logotipo{
     display: flex;
     align-items: center;

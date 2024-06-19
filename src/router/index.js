@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import login from '../views/auth/LoginView.vue'
+import recuperacion from '../views/auth/RecuperacionView.vue'
+import registro from '../views/auth/RegistroView.vue'
 import home from '../views/HomeView.vue'
 import cuenta from '../views/CuentaView.vue'
 import empresa from '../views/EmpresaView.vue'
-import empresas from '../views/EmpresasView.vue'
 import ordenes from '../views/OrdenesView.vue'
 import inventario from '../views/InventarioView.vue'
 import clientes from '../views/ClientesView.vue'
@@ -16,12 +18,22 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: home
+      name: 'login',
+      component: login
     },
     {
-      path: '/',
-      name: 'login',
+      path: '/recuperacion',
+      name: 'recuperacion',
+      component: recuperacion
+    },
+    {
+      path: '/registro',
+      name: 'registro',
+      component: registro
+    },
+    {
+      path: '/home',
+      name: 'home',
       component: home
     },
     {
@@ -33,11 +45,6 @@ const router = createRouter({
       path: '/empresa',
       name: 'empresa',
       component: empresa
-    },
-    {
-      path: '/empresas',
-      name: 'empresas',
-      component: empresas
     },
     {
       path: '/ordenes',

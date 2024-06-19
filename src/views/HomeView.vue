@@ -1,21 +1,28 @@
+<script setup>
+  import Header from '@/components/HeaderComponent.vue';
+  import Aside from '@/components/AsideComponent.vue';
+</script>
+<!-------------------------------------------------------->
 <template>
-    <div class="home">
-      <h1>This is a Home page</h1>
-      <img class="imgHome" src="../assets/mastermind-lateral-w.png" alt="logo">
-    </div>
-  </template>
-  
-  <style>
- .home{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: grey;
-    align-items: center;
-    margin: 50px;
-    padding: 50px;
-  }
-  .imgHome{
-    width: 600px;
-  }
-  </style>
+  <Header />
+  <div class="contenedor">
+    <Aside />
+    <main class="mainwebapp">
+      <h1>Home</h1>
+    </main>
+  </div>
+</template>
+<!-------------------------------------------------------->
+<style>
+.contenedor{
+  font-family: "Inter", sans-serif;
+  display: flex;
+  height: 90vh;
+  width: 100%;
+}
+.mainwebapp{
+  background-color: #d9d9d9;
+  height: 100%;
+  width: 100%;
+}
+</style>

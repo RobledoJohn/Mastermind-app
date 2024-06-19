@@ -1,41 +1,71 @@
+<script setup>
+    import { onMounted } from 'vue';
+    import axios from 'axios';
+    import Header from '@/components/HeaderComponent.vue';
+    import Aside from '@/components/AsideComponent.vue';
+
+    let ordenes = null;
+
+    const getOrdenes = async () => {
+        try {
+        const response = await axios.get('https://api.mastermind-app.site/api/api/ordenes');
+        ordenes = response.data;
+        } catch (error) {
+        console.error('Error fetching órdenes:', error);
+        }
+    };
+
+    // Llama a getOrdenes al montar el componente
+    onMounted(() => {
+        getOrdenes();
+    });
+</script>
+
 <template> 
-    <div class="baseTable">
-        <div class="buscadorContenedor">
-            <input class="buscador" placeholder="Buscar Orden">
-        </div>
-        <div class="botonOrden">
-            <router-link :to="{path:'/crearOrden'}">
-                <button class="btn">Agregar</button>
-            </router-link>
-        </div>
-        <table class="table">
-            <thead class="table">
-            <tr>
-            <th scope="col">Orden</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Equipo</th>
-            <th scope="col">Técnico</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="orden in ordenes" :key="orden.id">
-            <td>{{orden.id}}</td>
-            <td>{{orden.cliente}}</td>
-            <td>{{orden.equipo}}</td>
-            <td>{{orden.tecnico}}</td>
-            <td>{{orden.enum_estado_reparacion}}</td>            
-            <td>{{orden.created_at}}</td>
-            <td>
-                <router-link :to="{path:'/orden/'+orden.id}">
-                    <i class="bi bi-eye eye"></i>
+    <Header />
+    <div class="contenedor">
+        <Aside />
+        <main class="mainwebapp">
+            <h1>Home</h1>
+            <div class="baseTable">
+                <div class="buscadorContenedor">
+                <input class="buscador" placeholder="Buscar Orden">
+            </div>
+            <div class="botonOrden">
+                <router-link :to="{path:'/crearOrden'}">
+                    <button class="btn">Agregar</button>
                 </router-link>
-            </td>
-            </tr>
-        </tbody>
-        </table>
+            </div>
+            <table class="table">
+                <thead class="table">
+                    <tr>
+                    <th scope="col">Orden</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Equipo</th>
+                    <th scope="col">Técnico</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="orden in ordenes" :key="orden.id">
+                    <td>{{orden.id}}</td>
+                    <td>{{orden.cliente}}</td>
+                    <td>{{orden.equipo}}</td>
+                    <td>{{orden.tecnico}}</td>
+                    <td>{{orden.enum_estado_reparacion}}</td>            
+                    <td>{{orden.created_at}}</td>
+                    <td>
+                        <router-link :to="{path:'/orden/'+orden.id}">
+                            <i class="bi bi-eye eye"></i>
+                        </router-link>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </main>
     </div>
 </template>
 
@@ -77,29 +107,3 @@
     color: #06BCC1;
 }
 </style>
-
-<script>
-
-import axios from 'axios';
-
-export default{
-    data(){
-        return{ordenes: null}
-    },
-    mounted(){
-        this.getOrdenes();
-    },
-    methods:{
-        async getOrdenes(){
-            try{
-                axios.get('http://localhost:8000/api/ordenes')
-                .then(response =>{
-                    this.ordenes = response.data;
-                });
-            }catch(error){
-                console.log(error);
-            }
-        }
-    }
-}
-</script>
