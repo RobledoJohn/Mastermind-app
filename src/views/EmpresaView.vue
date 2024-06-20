@@ -8,7 +8,6 @@
     <div class="contenedor">
         <Aside />
         <main class="mainwebapp">
-            <h1>Empresa</h1>
             <div class="baseTable">
                 <form class="p-3 d-flex gap-5">
                     <div>

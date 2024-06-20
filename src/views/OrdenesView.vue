@@ -1,15 +1,16 @@
 <script setup>
-    import { onMounted } from 'vue';
+    import { onMounted, ref } from 'vue';
     import axios from 'axios';
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
 
-    let ordenes = null;
+    const ordenes = ref(null);
 
     const getOrdenes = async () => {
         try {
-        const response = await axios.get('https://api.mastermind-app.site/api/api/ordenes');
-        ordenes = response.data;
+        const response = await axios.get('https://mastermind-api.vercel.app/api/api/ordenes');
+        ordenes.value = response.data;
+        console.log('Órdenes:', ordenes.value);
         } catch (error) {
         console.error('Error fetching órdenes:', error);
         }
