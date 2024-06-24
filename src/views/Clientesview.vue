@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="data in dataApi" :key="data.id">
-                            <td>{{data.empresa.nombre}}</td>
+                            <td>{{data.empresas.nombre}}</td>
                             <td>{{data.id}}</td>
                             <td>{{data.nombre}}</td>
                             <td>{{data.identificacion}}</td>
