@@ -1,23 +1,23 @@
 <script setup>
-    import { onMounted } from 'vue';
+    import { ref, onMounted } from 'vue';
     import axios from 'axios';
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
 
-    let inventarios = null;
+    let dataApi = ref(null);
 
-    const getinventarios = async () => {
+    const getApiData = async () => {
         try {
-        const response = await axios.get('https://api.mastermind-app.site/api/api/inventarios');
-        inventarios = response.data;
+            const response = await axios.get('https://mastermind-api.vercel.app/api/api/productos');
+            dataApi.value = response.data;
         } catch (error) {
-        console.error('Error fetching inventarios:', error);
+            console.error('Error fetching data:', error);
         }
     };
 
     // Llama a getOrdenes al montar el componente
     onMounted(() => {
-        getinventarios();
+        getApiData();
     });
 </script>
 
@@ -39,21 +39,20 @@
                 <thead>
                     <tr>
                         <th>SKU</th>
+                        <th>Categoria</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
-                        <th>Categoria</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="inv in inventarios" :key="inv.id">
-                        <td>{{inv.id}}</td>
-                        <td>{{inv.Producto}}</td>
-                        <td>{{inv.Cantidad}}</td>
-                        <td>{{inv.Categoria}}</td>
-                        <td>{{inv.Opciones}}</td>
+                    <tr v-for="data in dataApi" :key="data.id">
+                        <td>{{data.SKU}}</td>
+                        <td>{{data.categorias.nombre}}</td>
+                        <td>{{data.nombre}}</td>
+                        <td>{{data.cantidad}}</td>
                         <td>
-                            <router-link :to="{path:'/inventario/'+inv.id}">
+                            <router-link :to="{path:'/producto/'+data.id}">
                                 <i class="bi bi-eye eye"></i>
                             </router-link>
                         </td>

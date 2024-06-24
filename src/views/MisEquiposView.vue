@@ -1,6 +1,24 @@
 <script setup>
-  import Header from '@/components/HeaderComponent.vue';
-  import Aside from '@/components/AsideComponent.vue';
+    import { ref, onMounted } from 'vue';
+    import axios from 'axios';
+    import Header from '@/components/HeaderComponent.vue';
+    import Aside from '@/components/AsideComponent.vue';
+
+    let dataApi = ref(null);
+
+    const getApiData = async () => {
+        try {
+            const response = await axios.get('https://mastermind-api.vercel.app/api/api/equipos');
+            dataApi.value = response.data;
+        } catch (error) {
+            console.error('Error fetching equipos:', error);
+        }
+    };
+
+    // Llama a getOrdenes al montar el componente
+    onMounted(() => {
+        getApiData();
+    });
 </script>
 
 <template>
@@ -20,15 +38,25 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>IMEI</th>
                             <th>Marca</th>
                             <th>Modelo</th>
-                            <th>Categoria</th>
+                            <th>Tipo</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr v-for="data in dataApi" :key="data.id">
+                            <td>{{data.id}}</td>
+                            <td>{{data.modelos.marca.nombre}}</td>
+                            <td>{{data.modelos.nombre}}</td>
+                            <td>{{data.modelos.enum_tipo_equipos}}</td>
+                            <td>
+                                <router-link :to="{path:'/miEquipo/'+data.id}">
+                                    <i class="bi bi-eye eye"></i>
+                                </router-link>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

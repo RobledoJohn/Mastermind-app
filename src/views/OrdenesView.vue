@@ -4,15 +4,15 @@
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
 
-    const ordenes = ref(null);
+    const dataApi= ref(null);
 
     const getOrdenes = async () => {
         try {
-        const response = await axios.get('https://mastermind-api.vercel.app/api/api/ordenes');
-        ordenes.value = response.data;
-        console.log('Órdenes:', ordenes.value);
+            const response = await axios.get('https://mastermind-api.vercel.app/api/api/ingresos');
+            dataApi.value = response.data;
+            console.log('Órdenes:', dataApi.value);
         } catch (error) {
-        console.error('Error fetching órdenes:', error);
+            console.error('Error fetching órdenes:', error);
         }
     };
 
@@ -50,15 +50,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="orden in ordenes" :key="orden.id">
-                    <td>{{orden.id}}</td>
-                    <td>{{orden.cliente}}</td>
-                    <td>{{orden.equipo}}</td>
-                    <td>{{orden.tecnico}}</td>
-                    <td>{{orden.enum_estado_reparacion}}</td>            
-                    <td>{{orden.created_at}}</td>
+                    <tr v-for="data in dataApi" :key="data.id">
+                    <td>{{data.id}}</td>
+                    <td>{{data.equipos.clientes.nombre}}</td>
+                    <td>{{data.equipos.modelos.nombre}}</td>
+                    <td>{{data.tecnicos.nombre}}</td>
+                    <td>{{data.enum_estado_reparacion}}</td>            
+                    <td>{{data.created_at}}</td>
                     <td>
-                        <router-link :to="{path:'/orden/'+orden.id}">
+                        <router-link :to="{path:'/orden/'+data.id}">
                             <i class="bi bi-eye eye"></i>
                         </router-link>
                     </td>

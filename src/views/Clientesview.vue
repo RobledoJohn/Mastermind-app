@@ -4,20 +4,20 @@
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
 
-    let clientes = ref(null);
+    let dataApi = ref(null);
 
-    const getClientes = async () => {
+    const getAPIData = async () => {
         try {
-        const response = await axios.get('https://mastermind-api.vercel.app/api/api/clientes');
-        clientes.value = response.data;
+            const response = await axios.get('https://mastermind-api.vercel.app/api/api/clientes');
+            dataApi.value = response.data;
         } catch (error) {
-        console.error('Error fetching clientes:', error);
+            console.error('Error fetching clientes:', error);
         }
     };
 
     // Llama a getOrdenes al montar el componente
     onMounted(() => {
-        getClientes();
+        getAPIData();
     });
 </script>
 
@@ -48,15 +48,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="cliente in clientes" :key="cliente.id">
-                            <td>{{cliente.empresa.nombre}}</td>
-                            <td>{{cliente.id}}</td>
-                            <td>{{cliente.nombre}}</td>
-                            <td>{{cliente.identificacion}}</td>
-                            <td>{{cliente.telefono}}</td>
-                            <td>{{cliente.direccion}}</td>
+                        <tr v-for="data in dataApi" :key="data.id">
+                            <td>{{data.empresa.nombre}}</td>
+                            <td>{{data.id}}</td>
+                            <td>{{data.nombre}}</td>
+                            <td>{{data.identificacion}}</td>
+                            <td>{{data.telefono}}</td>
+                            <td>{{data.direccion}}</td>
                             <td>
-                                <router-link :to="{path:'/cliente/'+cliente.id}">
+                                <router-link :to="{path:'/cliente/'+data.id}">
                                     <i class="bi bi-eye eye"></i>
                                 </router-link>
                             </td>
