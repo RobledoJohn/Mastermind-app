@@ -1,25 +1,7 @@
-<template>
-   <div class="container-login">
-        <img src="../../assets/img/mastermind-lateral.png" alt="logo" class="logo-log">
-        <div class="form-login">
-            <h1>Iniciar sesión</h1>
-            <form class="form-logn" @submit.prevent="loguearse" id="form-login">
-                <label for="user"></label>
-                <input class="inp-log" id="email" type="email" v-model="email" placeholder="E-mail">
-                <label for="pass"></label>
-                <input class="inp-log" id="password" type="password" v-model="password" placeholder="Contraseña">
-                <button class="btn-log" type="submit" id="botonLog">Iniciar Sesión</button>
-                <a class="forgot" @click.prevent="Recuperacion">¿Olvidé mi contraseña?</a>
-                <div class="reg-log">
-                    <p>¿Eres un usuario nuevo?</p>
-                    <a class="regis-log" @click.prevent="Registro">Registrarse</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</template>
-
 <script>
+
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -28,21 +10,38 @@ export default {
     };
   },
   methods: {
-    loguearse() {
-      // Validación básica del formulario
+    submit() {
+        // Asegúrate de que los campos no estén vacíos
+        if (this.email !== "" && this.password !== "") {
+            axios.get('https://mastermind-api.vercel.app/api/api/auth', {
+            //axios.post('http://127.0.0.1:8000/api/auth', {
+                email: this.email,
+                password: this.password
+            })
+            .then(response => {
+                // Manejar la respuesta aquí
+                const user = response.data;
 
-        let SuperUser = 'admin@mastermind.co';
-        let SuperPass = 'Admin123';
+                if (user && user.email === this.email) {
+                    if(user.clave === this.password){
+                        this.$router.push('/home');
+                    }else{
+                        alert("Contraseña incorrecta.");
+                    }
+                } else {
+                    alert("Usuario incorrecto.");
+                }
 
-      if (this.email !== "" && this.password !== "") {
-        if (this.email === SuperUser && this.password === SuperPass) {
-          this.$router.push('/home');
+
+            })
+            .catch(error => {
+                // Manejar errores aquí
+                console.error(error);
+                alert("Credenciales no válidas.");
+            });
         } else {
-          alert("Ingrese credenciales validas.");
+            alert("Por favor, complete todos los campos.");
         }
-      } else {
-        alert("Por favor, complete todos los campos.");
-      }
     },
     Registro() {
       // Navega a la ruta de recuperación utilizando Vue Router
@@ -55,6 +54,27 @@ export default {
   }
 };
 </script>
+
+<template>
+   <div class="container-login">
+        <img src="../../assets/img/mastermind-lateral.png" alt="logo" class="logo-log">
+        <div class="form-login">
+            <h1>Iniciar sesión</h1>
+            <form class="form-logn" @submit.prevent="submit" id="form-login">
+                <label for="user"></label>
+                <input class="inp-log" id="email" type="email" v-model="email" placeholder="E-mail">
+                <label for="pass"></label>
+                <input class="inp-log" id="password" type="password" v-model="password" placeholder="Contraseña">
+                <button class="btn-log" id="botonLog" native-type="submit">Iniciar Sesión</button>
+                <a class="forgot" @click.prevent="Recuperacion">¿Olvidé mi contraseña?</a>
+                <div class="reg-log">
+                    <p>¿Eres un usuario nuevo?</p>
+                    <a class="regis-log" @click.prevent="Registro">Registrarse</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
 
 <style>
 

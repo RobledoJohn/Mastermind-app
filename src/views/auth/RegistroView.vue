@@ -24,16 +24,33 @@ export default {
       // Envía los datos del formulario al servidor
       
       axios.post('https://mastermind-api.vercel.app/api/api/empresas', this.form)
+      
         .then(response => {
           // Manejar la respuesta aquí
           console.log(response);
           alert('Empresa registrada con éxito');
           this.$router.push('/');
         })
+
+        //si se genera error
         .catch(error => {
           // Manejar errores aquí
-          console.log(error);
-          alert('Error al registrar la empresa');
+          if (error.response && error.response.data && error.response.data.errores) {
+            let errores = error.response.data.errores;
+            let mensajes = [];
+
+            // Recorre cada campo con errores y agrega los mensajes a la lista
+            Object.keys(errores).forEach(campo => {
+              errores[campo].forEach(mensaje => {
+                mensajes.push(`${campo}: ${mensaje}`);
+              });
+            });
+
+            // Muestra todos los mensajes de error concatenados
+            alert('Errores:\n' + mensajes.join('\n'));
+          } else {
+            // Muestra un mensaje de error genérico si no se puede obtener información detallada
+            alert('Error al registrar la empresa');}
         });
     }
   }
