@@ -1,22 +1,46 @@
 <script>
 
+import axios from 'axios';
 
 export default {
   data() {
     return {
-      form: {
-        email: ''
-      }
+      email: '',
+      password: ''
     };
   },
   methods: {
+    submit() {
+        // Asegúrate de que los campos no estén vacíos
+        if (this.email !== "") {
+            axios.post('https://mastermind-api.vercel.app/api/api/auth', {
+            //axios.post('http://127.0.0.1:8000/api/auth', {
+                email: this.email
+            })
+            .then(response => {
+                // Manejar la respuesta aquí
+                const user = response.data;
+
+                if (user && user.email === this.email){
+                    // Navega a la ruta de recuperación utilizando Vue Router
+                    alert("Correo de recuperacion enviado con éxito.");
+                    this.$router.push('/');
+                }
+
+
+            })
+            .catch(error => {
+                // Manejar errores aquí
+                console.error(error);
+                alert("Correo no encontrado.");
+            });
+        } else {
+            alert("Por favor, complete todos los campos.");
+        }
+    },
     Login() {
       // Navega a la ruta de recuperación utilizando Vue Router
       this.$router.push('/');
-    },
-    validateEmail() {
-      // Valida el correo electrónico
-      //let inputEmail = this.form.email;
     }
   }
 };
@@ -27,9 +51,9 @@ export default {
         <img src="../../assets/img/mastermind-lateral.png" alt="logo" class="logo-log">
         <div class="form-req">
             <h1>Recuperar cuenta</h1>
-            <form class="form-logn" id="form-recup" @submit.prevent="validateEmail">
+            <form class="form-logn" id="form-recup" @submit.prevent="submit">
                 <label for="mail"></label>
-                <input class="inp-log" v-model="form.email" id="email" type="email" name="mail" placeholder="E-mail">
+                <input class="inp-log" id="email" type="email" v-model="email" placeholder="E-mail">
                 <button class="btn-req" native-type="submit">Recuperar</button>
                 <div class="reg-req">
                     <p>¿Recuerdas tu contraseña?</p>
