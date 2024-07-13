@@ -13,7 +13,7 @@ export default {
     submit() {
         // Asegúrate de que los campos no estén vacíos
         if (this.email !== "" && this.password !== "") {
-            axios.get('https://mastermind-api.vercel.app/api/api/auth', {
+            axios.post('https://mastermind-api.vercel.app/api/api/auth', {
             //axios.post('http://127.0.0.1:8000/api/auth', {
                 email: this.email,
                 password: this.password
