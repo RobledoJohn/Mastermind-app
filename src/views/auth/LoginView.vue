@@ -24,6 +24,7 @@ export default {
 
                 if (user && user.email === this.email) {
                     if(user.clave === this.password){
+                        localStorage.setItem('auth', JSON.stringify(user));
                         this.$router.push('/home');
                     }else{
                         alert("Contraseña incorrecta.");
