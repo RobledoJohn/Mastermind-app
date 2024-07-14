@@ -1,7 +1,9 @@
+
+
 <template>
     <aside class="asidewebapp">
-        <div class="logotipo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Samsung_logo_blue.png" alt="logotipo">
+        <div class="logotipo" >
+            <img  alt="logotipo">
         </div>
         <ul class="botonesList">
             <router-link :to="{path:'/ordenes'}" class="botonMenu">
@@ -31,6 +33,7 @@
         </ul>
     </aside>
 </template>
+
 <style scoped>
 .asidewebapp{
   background-color: #ffffff;
