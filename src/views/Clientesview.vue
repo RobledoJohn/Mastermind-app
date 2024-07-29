@@ -19,8 +19,8 @@ export default {
     methods:{
         async getOrdenes(id){
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/'+id+'/clientes');
-                //const response = await axios.get('https://mastermind-api.vercel.app/api/api/'+id+'/clientes');
+                //const response = await axios.get('http://127.0.0.1:8000/api/'+id+'/clientes');
+                const response = await axios.get('https://mastermind-api.vercel.app/api/api/'+id+'/clientes');
                 this.dataApi = response.data;
             } catch (error) {
                 console.log('Error al obtener el inventario:', error);

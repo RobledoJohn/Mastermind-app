@@ -25,7 +25,8 @@ export default {
 
                     localStorage.setItem('auth', JSON.stringify(user));
 
-                    axios.put('http://127.0.0.1:8000/api/empresas', {
+                    //axios.put('http://127.0.0.1:8000/api/empresas', {
+                    axios.put('https://mastermind-api.vercel.app/api/api/empresas', {
                         id: user.id,
                         nombre: user.nombre,
                         nit: user.nit,
