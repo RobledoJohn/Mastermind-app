@@ -1,24 +1,33 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
-    import axios from 'axios';
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
+</script>
 
-    let dataApi = ref(null);
+<script>
+import axios from 'axios';
 
-    const getAPIData = async () => {
-        try {
-            const response = await axios.get('https://mastermind-api.vercel.app/api/api/clientes');
-            dataApi.value = response.data;
-        } catch (error) {
-            console.error('Error fetching clientes:', error);
+export default {
+    data(){
+        return{
+            dataApi: []
         }
-    };
-
-    // Llama a getOrdenes al montar el componente
-    onMounted(() => {
-        getAPIData();
-    });
+    }, 
+    mounted(){
+        const user = JSON.parse(localStorage.auth);
+        this.getOrdenes(user.id);
+    },
+    methods:{
+        async getOrdenes(id){
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/'+id+'/clientes');
+                //const response = await axios.get('https://mastermind-api.vercel.app/api/api/'+id+'/clientes');
+                this.dataApi = response.data;
+            } catch (error) {
+                console.log('Error al obtener el inventario:', error);
+            }
+        }
+    }
+};
 </script>
 
 <template>
@@ -38,8 +47,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Empresa</th>
-                            <th>ID</th>
                             <th>Nombre</th>
                             <th>Documento</th>
                             <th>Telefono</th>
@@ -49,8 +56,6 @@
                     </thead>
                     <tbody>
                         <tr v-for="data in dataApi" :key="data.id">
-                            <td>{{data.empresas.nombre}}</td>
-                            <td>{{data.id}}</td>
                             <td>{{data.nombre}}</td>
                             <td>{{data.identificacion}}</td>
                             <td>{{data.telefono}}</td>
