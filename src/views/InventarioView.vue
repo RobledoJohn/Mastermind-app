@@ -1,24 +1,33 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
-    import axios from 'axios';
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
+</script>
 
-    let dataApi = ref(null);
+<script>
+import axios from 'axios';
 
-    const getApiData = async () => {
-        try {
-            const response = await axios.get('https://mastermind-api.vercel.app/api/api/productos');
-            dataApi.value = response.data;
-        } catch (error) {
-            console.error('Error fetching data:', error);
+export default{
+    data(){
+        return{
+            dataApi: []
         }
-    };
-
-    // Llama a getOrdenes al montar el componente
-    onMounted(() => {
-        getApiData();
-    });
+    }, 
+    mounted(){
+        const user = JSON.parse(localStorage.auth);
+        this.getOrdenes(user.id);
+    },
+    methods:{
+        async getOrdenes(id){
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/'+id+'/inventario');
+                //const response = await axios.get('https://mastermind-api.vercel.app/api/api/'+id+'/inventario');
+                this.dataApi = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+};
 </script>
 
 <template>
@@ -48,7 +57,7 @@
                 <tbody>
                     <tr v-for="data in dataApi" :key="data.id">
                         <td>{{data.SKU}}</td>
-                        <td>{{data.categorias.nombre}}</td>
+                        <td>{{data.categoria}}</td>
                         <td>{{data.nombre}}</td>
                         <td>{{data.cantidad}}</td>
                         <td>
