@@ -7,8 +7,10 @@
   <Header />
   <div class="contenedor">
     <Aside />
-    <main class="mainwebapp">
-      <h1>Home</h1>
+    <main class="mainwebapp container">
+      <div class="d-flex justify-content-center">
+        <img class="img-fluid w-50 mt-5" src="../assets/img/mastermind-letra-b.png" alt="logo">
+      </div>
     </main>
   </div>
 </template>
