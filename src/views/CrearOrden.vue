@@ -3,6 +3,10 @@
   import Aside from '@/components/AsideComponent.vue';
 </script>
 
+<script>
+import axios from 'axios';
+</script>
+
 <template>
     <Header />
     <div class="contenedor">

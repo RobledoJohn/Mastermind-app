@@ -13,14 +13,14 @@ export default{
         }
     }, 
     mounted(){
-
         const user = JSON.parse(localStorage.auth);
         this.getOrdenes(user.id);
     },
     methods:{
         async getOrdenes(id){
             try {
-                const response = await axios.get('http://localhost:8000/api/ingresos/'+id);
+                //const response = await axios.get('http://localhost:8000/api/'+id+'/ingresos');
+                const response = await axios.get('https://mastermind-api.vercel.app/api/api/'+id+'/ingresos');
                 this.dataApi = response.data;
             } catch (error) {
                 console.log(error);
