@@ -1,25 +1,33 @@
 <script setup>
-    import { onMounted, ref } from 'vue';
-    import axios from 'axios';
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
+</script>
 
-    const dataApi = ref(null);
+<script>
+import axios from 'axios';
 
-    const getApiData = async () => {
-        try {
-            const response = await axios.get('https://mastermind-api.vercel.app/api/api/ventas');
-            dataApi.value = response.data;
-            console.log('data:', dataApi.value);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+export default {
+    data(){
+        return{
+            dataApi: []
         }
-    };
-
-    // Llama a getOrdenes al montar el componente
-    onMounted(() => {
-        getApiData();
-    });
+    }, 
+    mounted(){
+        const user = JSON.parse(localStorage.auth);
+        this.getOrdenes(user.id);
+    },
+    methods:{
+        async getOrdenes(id){
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/'+id+'/ventas');
+                //const response = await axios.get('https://mastermind-api.vercel.app/api/api/'+id+'/inventario');
+                this.dataApi = response.data;
+            } catch (error) {
+                console.log('Error al obtener el inventario:', error);
+            }
+        }
+    }
+};
 </script>
 
 <template>
@@ -45,9 +53,9 @@
                     <tbody>
                         <tr v-for="data in dataApi" :key="data.id">
                             <td>{{data.id}}</td>
-                            <td>{{data.detalle_venta.ingresos.equipos.clientes.nombre}}</td>
-                            <td>{{data.detalle_venta.ingresos.equipos.modelos.nombre}}</td>
-                            <td>${{data.detalle_venta.monto}}</td>
+                            <td>{{}}</td>
+                            <td>{{data.nombre}}</td>
+                            <td>${{data.monto}}</td>
                             <td>{{data.enum_medio_pago}}</td>
                             <td>
                                 <router-link :to="{path:'/venta/'+data.id}">
