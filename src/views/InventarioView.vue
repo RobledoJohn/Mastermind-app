@@ -6,7 +6,7 @@
 <script>
 import axios from 'axios';
 
-export default{
+export default {
     data(){
         return{
             dataApi: []
@@ -23,7 +23,7 @@ export default{
                 //const response = await axios.get('https://mastermind-api.vercel.app/api/api/'+id+'/inventario');
                 this.dataApi = response.data;
             } catch (error) {
-                console.log(error);
+                console.log('Error al obtener el inventario:', error);
             }
         }
     }
