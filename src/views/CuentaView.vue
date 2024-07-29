@@ -19,7 +19,6 @@ export default {
     methods: {
         submit() {
             const user = this.user;
-
             if (this.user !== ""){
                 if (user.nombre !== "" && user.nit !== "" && user.email !== "" && user.clave !== "" && user.direccion !== "" && user.telefono !== ""){
                     alert('Datos guardados');
@@ -42,16 +41,13 @@ export default {
 
                         
                     })
-
-
-
                 }else{
                     alert('Complete todos los campos');
                 }
             }
         },
         loadUserData() {
-            const user = JSON.parse(localStorage.getItem('auth'));
+            const user = JSON.parse(localStorage.auth);
             this.user = user;
         }
     }
@@ -63,7 +59,6 @@ export default {
     <div class="contenedor">
         <Aside />
         <main class="mainwebapp">
-            <h1>cuenta</h1>
             <div class="baseTable">
                 <form class="p-3 d-flex gap-5" @submit.prevent="submit">
                     <div v-if="user">

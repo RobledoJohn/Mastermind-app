@@ -1,25 +1,33 @@
 <script setup>
-    import { onMounted, ref } from 'vue';
-    import axios from 'axios';
-    import Header from '@/components/HeaderComponent.vue';
-    import Aside from '@/components/AsideComponent.vue';
+import Header from '@/components/HeaderComponent.vue';
+import Aside from '@/components/AsideComponent.vue';
+</script>
 
-    const dataApi= ref(null);
+<script>
+import axios from 'axios';
 
-    const getOrdenes = async () => {
-        try {
-            const response = await axios.get('https://mastermind-api.vercel.app/api/api/ingresos');
-            dataApi.value = response.data;
-            console.log('Órdenes:', dataApi.value);
-        } catch (error) {
-            console.error('Error fetching órdenes:', error);
+export default{
+    data(){
+        return{
+            dataApi: []
         }
-    };
+    }, 
+    mounted(){
 
-    // Llama a getOrdenes al montar el componente
-    onMounted(() => {
-        getOrdenes();
-    });
+        const user = JSON.parse(localStorage.auth);
+        this.getOrdenes(user.id);
+    },
+    methods:{
+        async getOrdenes(id){
+            try {
+                const response = await axios.get('http://localhost:8000/api/ingresos/'+id);
+                this.dataApi = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+};
 </script>
 
 <template> 
@@ -27,7 +35,6 @@
     <div class="contenedor">
         <Aside />
         <main class="mainwebapp">
-            <h1>Home</h1>
             <div class="baseTable">
                 <div class="buscadorContenedor">
                 <input class="buscador" placeholder="Buscar Orden">
@@ -41,7 +48,6 @@
                 <thead class="table">
                     <tr>
                     <th scope="col">Orden</th>
-                    <th scope="col">Cliente</th>
                     <th scope="col">Equipo</th>
                     <th scope="col">Técnico</th>
                     <th scope="col">Estado</th>
@@ -52,9 +58,8 @@
                 <tbody>
                     <tr v-for="data in dataApi" :key="data.id">
                     <td>{{data.id}}</td>
-                    <td>{{data.equipos.clientes.nombre}}</td>
-                    <td>{{data.equipos.modelos.nombre}}</td>
-                    <td>{{data.tecnicos.nombre}}</td>
+                    <td>{{data.id_equipo}}</td>
+                    <td>{{data.id_tecnico}}</td>
                     <td>{{data.enum_estado_reparacion}}</td>            
                     <td>{{data.created_at}}</td>
                     <td>

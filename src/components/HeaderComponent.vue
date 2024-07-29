@@ -1,13 +1,13 @@
 <template>
   <nav>
-    <img class="d-inline-block mx-2" src="../assets/img/mastermind-lateral-w.png" alt="Logo" height="50">
+    <img class="d-inline-block mx-2" src="../assets/img/mastermind-lateral-w.png" alt="Logo" style="height: 50px;">
     <div class="icons"> 
         <router-link :to="{path:'/home'}" class="botonMenu">
             <i class="bi bi-house"></i>
         </router-link>    
-        <router-link :to="{path:'/empresa'}" class="botonMenu">
+        <!--<router-link :to="{path:'/empresa'}" class="botonMenu">
           <i class="bi bi-buildings"></i>
-        </router-link>    
+        </router-link>-->
         <router-link :to="{path:'/cuenta'}" class="botonMenu">
           <i class="bi bi-person-circle"></i>
         </router-link>    
