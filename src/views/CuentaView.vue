@@ -39,8 +39,6 @@ export default {
                     .then(response => {
                         const user = response.data;
                         localStorage.setItem('auth', JSON.stringify(user));
-
-                        
                     })
                 }else{
                     alert('Complete todos los campos');

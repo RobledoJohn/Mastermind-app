@@ -1,6 +1,7 @@
 <script setup>
 import Header from '@/components/HeaderComponent.vue';
 import Aside from '@/components/AsideComponent.vue';
+import ordenesPopUpVue from '@/components/modal/ordenesPopUp.vue';
 </script>
 
 <script>
@@ -9,7 +10,8 @@ import axios from 'axios';
 export default{
     data(){
         return{
-            dataApi: []
+            dataApi: [],
+            popUp: false
         }
     }, 
     mounted(){
@@ -25,6 +27,9 @@ export default{
             } catch (error) {
                 console.log(error);
             }
+        },
+        togglePopUp(){
+            this.popUp = !this.popUp;
         }
     }
 };
@@ -39,10 +44,9 @@ export default{
                 <div class="buscadorContenedor">
                 <input class="buscador" placeholder="Buscar Orden">
             </div>
+            <ordenesPopUpVue v-show="popUp"/>
             <div class="botonOrden">
-                <router-link :to="{path:'/crearOrden'}">
-                    <button class="btn">Agregar</button>
-                </router-link>
+                <button class="btn" @click="togglePopUp()">Agregar</button>
             </div>
             <table class="table">
                 <thead class="table">
