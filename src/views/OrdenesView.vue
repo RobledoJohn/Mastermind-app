@@ -44,7 +44,7 @@ export default{
                 <div class="buscadorContenedor">
                 <input class="buscador" placeholder="Buscar Orden">
             </div>
-            <ordenesPopUpVue v-show="popUp"/>
+            <ordenesPopUpVue v-show="popUp" @close="togglePopUp()"/>
             <div class="botonOrden">
                 <button class="btn" @click="togglePopUp()">Agregar</button>
             </div>
