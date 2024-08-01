@@ -65,6 +65,10 @@ export default {
                 <!-- Opciones de equipo aquí -->
                 </select>
             </div>
+            <div class="selector mb-3">
+                <label for="descripcion">Descripción de daños: </label>
+                <textarea class="form-control" name="descripcion" id="descipcion" cols="30" rows="5"></textarea>
+            </div>
             <div class="botonOrdenPopUp">
                 <button class="btn" type="submit">Crear Orden</button>
             </div>
