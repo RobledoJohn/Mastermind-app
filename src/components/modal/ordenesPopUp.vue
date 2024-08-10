@@ -61,9 +61,11 @@ export default {
             .then(response => {
             console.log('Datos creados:', response.data);
             alert("Orden creada con éxito");
+            this.close();
             })
             .catch(error => {
             console.error('Error al enviar los datos:', error);
+            console.log(this.formData);
             alert("Error al crear la orden");
             });
     }
@@ -74,7 +76,7 @@ export default {
 
 <template>
     <div class="popUp">
-        <button class="close" @click="close">X</button>
+        <button class="close" @click="close"><i class="bi bi-x-square-fill"></i></button>
         <div class="d-block">
         <h1 class="tittle-orden">Crear Orden</h1>
         <form @submit.prevent="submit">
