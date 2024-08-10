@@ -61,7 +61,7 @@ export default {
                             <td>{{data.telefono}}</td>
                             <td>{{data.direccion}}</td>
                             <td>
-                                <router-link :to="{path:'/cliente/'+data.id}">
+                                <router-link :to="{path:'/clientes/'+data.id}">
                                     <i class="bi bi-eye eye"></i>
                                 </router-link>
                             </td>

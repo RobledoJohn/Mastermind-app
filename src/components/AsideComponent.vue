@@ -26,10 +26,6 @@
                 <li class="boton">
                 <i class="bi bi-person-rolodex"></i>Técnicos</li>
             </router-link>
-            <router-link :to="{path:'/misEquipos'}" class="botonMenu">
-                <li class="boton">
-                <i class="bi bi-display"></i>Mis Equipos</li>
-            </router-link>
         </ul>
     </aside>
 </template>

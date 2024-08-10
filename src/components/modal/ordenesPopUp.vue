@@ -1,11 +1,22 @@
 <script>
 import { debounce } from 'lodash';
+import axios from 'axios';
 
 export default {
   data() {
     return {
       documentoCliente: '',
-      clienteEncontrado: null
+      cliente: null,
+      equipos: [], 
+      response: null,
+      formData:{
+        id_cliente: null,
+        id_equipo: null,
+        id_tecnico: null,
+        descripcion: null,
+        enum_estado_reparacion: null,
+        enlace_seguimiento: null
+      }
     };
   },
   methods: {
@@ -13,19 +24,20 @@ export default {
       this.$emit('close');
     },
     buscarCliente: debounce(async function() {
-      const user = JSON.parse(localStorage.getItem('auth')); // Asegúrate de que el formato es correcto
+      const user = JSON.parse(localStorage.getItem('auth'));
 
       if (this.documentoCliente.length >= 10) {
         try {
-          const response = await fetch(`http://127.0.0.1:8000/api/${user.id}/clientes/${this.documentoCliente}`);
-          const data = await response.json();
-          if (data.length > 0) {
-            this.clienteEncontrado = data[0]; // Asignar el primer cliente del array
+          const data = await fetch(`http://127.0.0.1:8000/api/${user.id}/clientes/${this.documentoCliente}`);
+          const response = await data.json();
+          if (response) {
+            this.cliente = response.cliente;
+            this.equipos = response.equipos;
+            this.response = response;
           } else {
             this.limpiarDatos();
           }
         } catch (error) {
-          console.error('Error al consultar el cliente:', error);
           this.limpiarDatos();
         }
       } else {
@@ -33,7 +45,27 @@ export default {
       }
     }, 300),
     limpiarDatos() {
-      this.clienteEncontrado = null;
+      this.cliente = null;
+    },
+    submit() {
+        this.formData.id_cliente = this.cliente ? this.cliente.id : null;
+        this.formData.id_tecnico = 4;
+        this.formData.id_equipo = parseInt(document.getElementById('opcionesEquip').value);
+        this.formData.descripcion = document.getElementById('descripcion').value;
+        this.formData.enum_estado_reparacion = 2;
+        this.formData.enlace_seguimiento = 'https://mastermind-api.vercel.app/api/seguimiento/prueba';
+
+        // Envío del formulario
+        const user = JSON.parse(localStorage.getItem('auth'));
+        axios.post(`http://127.0.0.1:8000/api/${user.id}/ingresos`, this.formData)
+            .then(response => {
+            console.log('Datos creados:', response.data);
+            alert("Orden creada con éxito");
+            })
+            .catch(error => {
+            console.error('Error al enviar los datos:', error);
+            alert("Error al crear la orden");
+            });
     }
   }
 }
@@ -45,32 +77,35 @@ export default {
         <button class="close" @click="close">X</button>
         <div class="d-block">
         <h1 class="tittle-orden">Crear Orden</h1>
-        <form>
+        <form @submit.prevent="submit">
           <div class="selector mb-3">
             <label for="buscarCli">No. Identificación: </label>
             <input class="form-control" type="text" id="buscarCli" v-model="documentoCliente" @input="buscarCliente">
-            <div class="btn-clienteNuevo" v-if="!clienteEncontrado">
-                <a href="/clientes">Crear Cliente</a>
+            <div class="btn-clienteNuevo" v-if="!cliente">
+                <a :href="'/clientes'">Crear Cliente</a>
             </div>
           </div>
-          <div v-if="clienteEncontrado">
+          <div v-if="response">
             <div class="selector mb-3">
                 <label for="opcionesCli">Cliente: </label>
-                <input class="form-control" type="text" id="opcionesCli" :value="clienteEncontrado.nombre" disabled>
+                <input class="form-control" type="text" id="opcionesCli" :value="cliente.nombre" disabled>
             </div>
-            <div class="selector mb-3">
+            <div class="selector">
                 <label for="opcionesEquip">Equipo: </label>
-                <select class="form-select" id="opcionesEquip">
-                <option value="1">Seleccione una opción</option>
-                <!-- Opciones de equipo aquí -->
+                <select class="form-select" id="opcionesEquip" >
+                    <option>Seleccione el equipo</option>
+                    <option v-for="equipo in equipos" :key="equipo.id" :value="equipo.id">{{ equipo.modelos.nombre }}</option>
                 </select>
+            </div>
+            <div class="selector mb-3 mt-1">
+                <a :href="'/clientes/'+ cliente.id ">Nuevo equipo</a>
             </div>
             <div class="selector mb-3">
                 <label for="descripcion">Descripción de daños: </label>
-                <textarea class="form-control" name="descripcion" id="descipcion" cols="30" rows="5"></textarea>
+                <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="5"></textarea>
             </div>
             <div class="botonOrdenPopUp">
-                <button class="btn" type="submit">Crear Orden</button>
+                <button class="btn" native-type="submit">Crear Orden</button>
             </div>
           </div>
         </form>
@@ -125,6 +160,14 @@ export default {
         font-size: large;
         color: #167A9A;
     }
+    a{
+        color: #167A9A;
+        font-size: small;
+        font-weight: normal;
+    }
+    a:hover{
+        color: #06BCC1;
+    }
 }
 
 .btn-clienteNuevo {
@@ -143,11 +186,9 @@ export default {
     }
 }
 
-.btn-clienteNuevo:hover{
-    a{
-        background-color: #06BCC1;
-        color: #12263A;
-    }
+.btn-clienteNuevo a:hover{
+    background-color: #06BCC1;
+    color: #12263A;
 }
 
 .botonOrdenPopUp {

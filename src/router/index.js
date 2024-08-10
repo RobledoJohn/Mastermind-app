@@ -8,6 +8,7 @@ import empresa from '../views/EmpresaView.vue'
 import ordenes from '../views/OrdenesView.vue'
 import inventario from '../views/InventarioView.vue'
 import clientes from '../views/ClientesView.vue'
+import verCliente from '../views/VerClienteView.vue'
 import ventas from '../views/VentasView.vue'
 import tecnicos from '../views/TecnicosView.vue'
 import misEquipos from '../views/MisEquiposView.vue'
@@ -60,6 +61,11 @@ const router = createRouter({
       path: '/clientes',
       name: 'clientes',
       component: clientes
+    },
+    {
+      path: '/clientes/:id',
+      name: 'verCliente',
+      component: verCliente
     },
     {
       path: '/ventas',
