@@ -5,6 +5,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      crearCliente: true,
       documentoCliente: '',
       cliente: null,
       equipos: [], 
@@ -36,7 +37,10 @@ export default {
           if (response) {
             
             if (response.cliente != null) {
+              this.crearCliente = false;
               this.cliente = response.cliente;
+              console.log("cliente this: "+this.cliente.nombre);
+              console.log("cliente res: "+response.cliente.nombre);
 
               if (response.equipos != null) {
                   this.equipos = response.equipos;
@@ -46,13 +50,11 @@ export default {
                   console.log(this.errorMsg);
               }
             }else{
+              this.crearCliente = true;
               this.errorMsg = response.mensaje || "Cliente no encontrado";
-              console.log(this.errorMsg);
               alert(this.errorMsg);
-              this.limpiarDatos();
             }
             this.response = response;
-            this.limpiarDatos();
           } else {
             this.errorMsg = "Cliente no encontrado";
             this.limpiarDatos();
@@ -66,6 +68,7 @@ export default {
       }
     }, 300),
     limpiarDatos() {
+      this.documentoCliente = '';
       this.cliente = null;
       this.equipos = [];
       this.errorMsg = "";
@@ -107,7 +110,7 @@ export default {
           <div class="selector mb-3">
             <label for="buscarCli">No. Identificación: </label>
             <input class="form-control" type="text" id="buscarCli" v-model="documentoCliente" @input="buscarCliente">
-            <div class="btn-clienteNuevo" v-if="!cliente">
+            <div class="btn-clienteNuevo" v-if="crearCliente">
                 <a :href="'/clientes'">Crear Cliente</a>
                 <div v-if=errorMsg>
                     <p style="color:red">{{ errorMsg }}</p>
@@ -117,17 +120,17 @@ export default {
           <div v-if="response">
             <div class="selector mb-3">
                 <label for="opcionesCli">Cliente: </label>
-                <input class="form-control" type="text" id="opcionesCli" :value="cliente.nombre" disabled>
+                <input class="form-control" type="text" id="opcionesCli" :value="response.cliente.nombre" disabled>
             </div>
             <div class="selector">
                 <label for="opcionesEquip">Equipo: </label>
                 <select class="form-select" id="opcionesEquip" >
                     <option>Seleccione el equipo</option>
-                    <option v-for="equipo in equipos" :key="equipo.id" :value="equipo.id">{{ equipo.modelos.nombre }}</option>
+                    <option v-for="equipo in response.equipos" :key="equipo.id" :value="equipo.id">{{ equipo.modelos.nombre }}</option>
                 </select>
             </div>
             <div class="selector mb-3 mt-1">
-                <a :href="'/clientes/'+ cliente.id ">Nuevo equipo</a>
+                <a :href="'/clientes/'+ response.cliente.id ">Nuevo equipo</a>
             </div>
             <div class="selector mb-3">
                 <label for="descripcion">Descripción de daños: </label>

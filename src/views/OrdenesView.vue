@@ -21,6 +21,9 @@ export default{
         this.getOrdenes(user.id);
     },
     methods:{
+        togglePopUp(){
+            this.popUp = !this.popUp;
+        },
         async getOrdenes(id){
             try {
                 //const response = await axios.get('http://localhost:8000/api/'+id+'/ingresos');
@@ -39,9 +42,6 @@ export default{
                 console.log(error);
             }
             this.$router.push('/ordenes');            
-        },
-        togglePopUp(){
-            this.popUp = !this.popUp;
         },
         deleteOrder(id){
             const swalWithBootstrapButtons = Swal.mixin({
