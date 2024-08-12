@@ -19,7 +19,8 @@ const user = JSON.parse(localStorage.auth);
 // Función para obtener la orden
 const getOrden = async (id_empresa, id_orden) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/${id_empresa}/ingresos/${id_orden}`);
+        const response = await axios.get(`https://mastermind-api.vercel.app/api/api/${id_empresa}/ingresos/${id_orden}`);
+        //const response = await axios.get(`http://localhost:8000/api/${id_empresa}/ingresos/${id_orden}`);
         dataApi.value = response.data;
         // Inicializar formData con los datos obtenidos
         formData.value = {
@@ -34,7 +35,8 @@ const getOrden = async (id_empresa, id_orden) => {
 
 const getTecnicos = async (idEmpresa) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/${idEmpresa}/tecnicos`);
+        const response = await axios.get(`https://mastermind-api.vercel.app/api/api/${idEmpresa}/tecnicos`);
+        //const response = await axios.get(`http://localhost:8000/api/${idEmpresa}/tecnicos`);
         tecnicos.value = response.data;
     } catch (error) {
         console.log(error);
@@ -45,7 +47,8 @@ const submit = async () => {
     console.log(user.id);
     console.log(formData.value);
     try {
-        await axios.put(`http://127.0.0.1:8000/api/${user.id}/ingresos/${route.params.id}`, formData.value);
+        await axios.put(`https://mastermind-api.vercel.app/api/api/${user.id}/ingresos/${route.params.id}`, formData.value);
+        //await axios.put(`http://127.0.0.1:8000/api/${user.id}/ingresos/${route.params.id}`, formData.value);
         alert("Orden actualizada con éxito");
     } catch (error) {
         console.error('Error al enviar los datos:', error);

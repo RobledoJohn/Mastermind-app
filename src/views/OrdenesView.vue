@@ -32,8 +32,8 @@ export default{
         },
         async BorrarOrdenPorId(id_orden){
             try {
-                const response = await axios.delete('http://localhost:8000/api/'+this.user.id+'/ingresos/'+id_orden);
-                //await axios.delete('https://mastermind-api.vercel.app/api/'+this.user.id+'/ingresos/'+id);
+                //const response = await axios.delete('http://localhost:8000/api/'+this.user.id+'/ingresos/'+id_orden);
+                const response = await axios.delete('https://mastermind-api.vercel.app/api/api/'+this.user.id+'/ingresos/'+id_orden);
                 console.log(response);
             } catch (error) {
                 console.log(error);

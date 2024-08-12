@@ -29,7 +29,8 @@ export default {
 
       if (this.documentoCliente.length >= 10) {
         try {
-          const data = await fetch(`http://127.0.0.1:8000/api/${user.id}/clientes/${this.documentoCliente}`);
+          const data = await fetch(`https://mastermind-api.vercel.app/api/api/${user.id}/clientes/${this.documentoCliente}`);
+          //const data = await fetch(`http://127.0.0.1:8000/api/${user.id}/clientes/${this.documentoCliente}`);
           const response = await data.json();
 
           if (response) {
@@ -75,11 +76,12 @@ export default {
         this.formData.id_equipo = parseInt(document.getElementById('opcionesEquip').value);
         this.formData.descripcion = document.getElementById('descripcion').value;
         this.formData.enum_estado_reparacion = 2; 
-        this.formData.enlace_seguimiento = 'https://mastermind-api.vercel.app/api/seguimiento/prueba';
+        this.formData.enlace_seguimiento = `https://mastermind-api.vercel.app/api/seguimiento/${this.formData.id_equipo}`;
 
         // Envío del formulario
         const user = JSON.parse(localStorage.getItem('auth'));
-        axios.post(`http://127.0.0.1:8000/api/${user.id}/ingresos`, this.formData)
+        //axios.post(`http://127.0.0.1:8000/api/${user.id}/ingresos`, this.formData)
+        axios.post(`https://mastermind-api.vercel.app/api/api/${user.id}/ingresos`, this.formData)
             .then(response => {
             console.log('Datos creados:', response.data);
             alert("Orden creada con éxito");
