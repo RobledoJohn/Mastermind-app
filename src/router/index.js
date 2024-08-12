@@ -13,6 +13,7 @@ import ventas from '../views/VentasView.vue'
 import tecnicos from '../views/TecnicosView.vue'
 import misEquipos from '../views/MisEquiposView.vue'
 import Orden from '../views/OrdenView.vue'
+import editOrden from '../views/EditOrdenView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +87,11 @@ const router = createRouter({
       path: '/Orden/:id',
       name: 'Orden',
       component: Orden
+    },
+    {
+      path: '/editarOrden/:id',
+      name: 'OrdenEdit',
+      component: editOrden
     }
   ]
 });

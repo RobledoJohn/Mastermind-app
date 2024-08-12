@@ -16,7 +16,8 @@ export default {
         descripcion: null,
         enum_estado_reparacion: null,
         enlace_seguimiento: null
-      }
+      }, 
+      errorMsg: ""
     };
   },
   methods: {
@@ -30,15 +31,34 @@ export default {
         try {
           const data = await fetch(`http://127.0.0.1:8000/api/${user.id}/clientes/${this.documentoCliente}`);
           const response = await data.json();
+
           if (response) {
-            this.cliente = response.cliente;
-            this.equipos = response.equipos;
+            
+            if (response.cliente != null) {
+              this.cliente = response.cliente;
+
+              if (response.equipos != null) {
+                  this.equipos = response.equipos;
+              }else{
+                  alert('Equipos no encontrados');   
+                  this.errorMsg = "Equipos no encontrados";
+                  console.log(this.errorMsg);
+              }
+            }else{
+              this.errorMsg = response.mensaje || "Cliente no encontrado";
+              console.log(this.errorMsg);
+              alert(this.errorMsg);
+              this.limpiarDatos();
+            }
             this.response = response;
+            this.limpiarDatos();
           } else {
+            this.errorMsg = "Cliente no encontrado";
             this.limpiarDatos();
           }
         } catch (error) {
           this.limpiarDatos();
+          this.errorMsg ="Error al buscar el cliente";
         }
       } else {
         this.limpiarDatos();
@@ -46,13 +66,15 @@ export default {
     }, 300),
     limpiarDatos() {
       this.cliente = null;
+      this.equipos = [];
+      this.errorMsg = "";
     },
     submit() {
         this.formData.id_cliente = this.cliente ? this.cliente.id : null;
-        this.formData.id_tecnico = 4;
+        this.formData.id_tecnico = 0; //cambiar valor
         this.formData.id_equipo = parseInt(document.getElementById('opcionesEquip').value);
         this.formData.descripcion = document.getElementById('descripcion').value;
-        this.formData.enum_estado_reparacion = 2;
+        this.formData.enum_estado_reparacion = 2; 
         this.formData.enlace_seguimiento = 'https://mastermind-api.vercel.app/api/seguimiento/prueba';
 
         // Envío del formulario
@@ -85,6 +107,9 @@ export default {
             <input class="form-control" type="text" id="buscarCli" v-model="documentoCliente" @input="buscarCliente">
             <div class="btn-clienteNuevo" v-if="!cliente">
                 <a :href="'/clientes'">Crear Cliente</a>
+                <div v-if=errorMsg>
+                    <p style="color:red">{{ errorMsg }}</p>
+                </div>
             </div>
           </div>
           <div v-if="response">
