@@ -39,8 +39,6 @@ export default {
             if (response.cliente != null) {
               this.crearCliente = false;
               this.cliente = response.cliente;
-              console.log("cliente this: "+this.cliente.nombre);
-              console.log("cliente res: "+response.cliente.nombre);
 
               if (response.equipos != null) {
                   this.equipos = response.equipos;

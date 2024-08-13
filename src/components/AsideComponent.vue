@@ -1,9 +1,18 @@
+<script>
 
+export default {
+  data() {
+    return {
+      user: JSON.parse(localStorage.auth),
+    };
+  },
+}
+</script>
 
 <template>
     <aside class="asidewebapp">
         <div class="logotipo">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzo6yD6aSlWOfjPLT8HS091jJ_vIF_e-evL-aCWR0zVLJlLBnFcxNzmbpHUXpNsTC6XpQ&usqp=CAU" alt="logotipo">
+            <img :src="user.avatar" alt="logotipo">
         </div>
         <ul class="botonesList">
             <router-link :to="{path:'/ordenes'}" class="botonMenu">
@@ -29,6 +38,7 @@
         </ul>
     </aside>
 </template>
+
 <style scoped>
 .asidewebapp{
   background-color: #ffffff;

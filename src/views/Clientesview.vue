@@ -40,7 +40,7 @@ export default {
                     <input class="buscador" placeholder="Buscar">
                 </div>
                 <div class="botonOrden">
-                    <router-link :to="{path:'/creaItem'}">
+                    <router-link :to="{path:'/crear/cliente'}">
                         <button class="btn">Agregar</button>
                     </router-link>
                 </div>
