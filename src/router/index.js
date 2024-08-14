@@ -15,6 +15,7 @@ import verCliente from '../views/VerClienteView.vue'
 import ventas from '../views/VentasView.vue'
 import tecnicos from '../views/TecnicosView.vue'
 import misEquipos from '../views/MisEquiposView.vue'
+import nuevoEquipo from '../views/NuevoEquipoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,6 +99,11 @@ const router = createRouter({
       path: '/misEquipos',
       name: 'misEquipos',
       component: misEquipos
+    },
+    {
+      path: '/nuevoEquipo',
+      name: 'nuevoEquipo',
+      component: nuevoEquipo
     }
   ]
 });

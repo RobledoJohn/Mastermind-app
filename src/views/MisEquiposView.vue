@@ -5,10 +5,12 @@
     import Aside from '@/components/AsideComponent.vue';
 
     let dataApi = ref(null);
+    let user = JSON.parse(localStorage.auth);
 
     const getApiData = async () => {
         try {
-            const response = await axios.get('https://mastermind-api.vercel.app/api/api/equipos');
+            //const response = await axios.get('https://mastermind-api.vercel.app/api/api/equipos');
+            const response = await axios.get('http://127.0.0.1:8000/api/'+user.id+'/equipos/'+user.id);
             dataApi.value = response.data;
         } catch (error) {
             console.error('Error fetching equipos:', error);
@@ -31,7 +33,7 @@
                     <input class="buscador" placeholder="Buscar">
                 </div>
                 <div class="botonOrden">
-                    <router-link :to="{path:'/creaItem'}">
+                    <router-link :to="{path:'/nuevoEquipo'}">
                         <button class="btn">Agregar</button>
                     </router-link>
                 </div>
