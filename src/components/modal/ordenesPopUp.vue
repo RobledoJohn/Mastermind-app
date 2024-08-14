@@ -5,7 +5,10 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      user: JSON.parse(localStorage.getItem('auth')),
       crearCliente: true,
+      tecnicos: [],
+      tecnicoDefinido: '',
       documentoCliente: '',
       cliente: null,
       equipos: [], 
@@ -26,22 +29,21 @@ export default {
       this.$emit('close');
     },
     buscarCliente: debounce(async function() {
-      const user = JSON.parse(localStorage.getItem('auth'));
 
       if (this.documentoCliente.length >= 10) {
         try {
-          const data = await fetch(`https://mastermind-api.vercel.app/api/api/${user.id}/clientes/${this.documentoCliente}`);
-          //const data = await fetch(`http://127.0.0.1:8000/api/${user.id}/clientes/${this.documentoCliente}`);
-          const response = await data.json();
-
+          const data = await axios.get(`https://mastermind-api.vercel.app/api/api/${this.user.id}/clientes/${this.documentoCliente}`);
+          //const data = await fetch(`http://127.0.0.1:8000/api/${this.user.id}/clientes/${this.documentoCliente}`);
+          const response = data.data;
           if (response) {
-            
+
             if (response.cliente != null) {
               this.crearCliente = false;
               this.cliente = response.cliente;
 
               if (response.equipos != null) {
                   this.equipos = response.equipos;
+                  this.buscarTecnicos();
               }else{
                   alert('Equipos no encontrados');   
                   this.errorMsg = "Equipos no encontrados";
@@ -65,15 +67,25 @@ export default {
         this.limpiarDatos();
       }
     }, 300),
+    async buscarTecnicos(){
+      try {
+        //axios.get(`https://mastermind-api.vercel.app/api/api/${this.user.id}/tecnicos`)
+        const response = await axios.get(`http://127.0.0.1:8000/api/${this.user.id}/tecnicos`);
+        this.tecnicos = response.data;
+      } catch (error) {
+        console.error('Error al obtener los técnicos:', error);
+      }
+    },
     limpiarDatos() {
       this.documentoCliente = '';
       this.cliente = null;
       this.equipos = [];
       this.errorMsg = "";
+      this.tecnicos = [];
     },
     submit() {
         this.formData.id_cliente = this.cliente ? this.cliente.id : null;
-        this.formData.id_tecnico = 0; //cambiar valor
+        this.formData.id_tecnico = this.tecnicoDefinido; //cambiar valor
         this.formData.id_equipo = parseInt(document.getElementById('opcionesEquip').value);
         this.formData.descripcion = document.getElementById('descripcion').value;
         this.formData.enum_estado_reparacion = 2; 
@@ -108,9 +120,9 @@ export default {
           <div class="selector mb-3">
             <label for="buscarCli">No. Identificación: </label>
             <input class="form-control" type="text" id="buscarCli" v-model="documentoCliente" @input="buscarCliente">
-            <div class="btn-clienteNuevo" v-if="crearCliente">
+            <div class="btn-clienteNuevo d-flex" v-if="crearCliente">
                 <a :href="'/clientes'">Crear Cliente</a>
-                <div v-if=errorMsg>
+                <div  v-if=errorMsg>
                     <p style="color:red">{{ errorMsg }}</p>
                 </div>
             </div>
@@ -120,15 +132,23 @@ export default {
                 <label for="opcionesCli">Cliente: </label>
                 <input class="form-control" type="text" id="opcionesCli" :value="response.cliente.nombre" disabled>
             </div>
-            <div class="selector">
+            <div class="selector mb-1">
                 <label for="opcionesEquip">Equipo: </label>
                 <select class="form-select" id="opcionesEquip" >
-                    <option>Seleccione el equipo</option>
+                    <option selected disabled>-Seleccione el equipo-</option>
                     <option v-for="equipo in response.equipos" :key="equipo.id" :value="equipo.id">{{ equipo.modelos.nombre }}</option>
                 </select>
             </div>
-            <div class="selector mb-3 mt-1">
+            <div class="selector mt-3">
                 <a :href="'/clientes/'+ response.cliente.id ">Nuevo equipo</a>
+            </div>
+            <div class="selector mb-3">
+                <label for="opcionesEquip">Técnico: </label>
+                
+                <select class="form-select" id="opcionesEquip" v-model="tecnicoDefinido">
+                    <option selected disabled>-Seleccione el técnico-</option>
+                    <option v-for="tecnico in tecnicos" :key="tecnico.id" :value="tecnico.id">{{ tecnico.nombre }}</option>
+                    </select>
             </div>
             <div class="selector mb-3">
                 <label for="descripcion">Descripción de daños: </label>

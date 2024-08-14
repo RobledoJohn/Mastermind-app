@@ -4,6 +4,8 @@ import Aside from '@/components/AsideComponent.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
+import Swal from 'sweetalert2'
+
 const user = JSON.parse(localStorage.auth);
 const tiposDocumentos = ref([]);
 const ciudades = ref([]);
@@ -38,12 +40,15 @@ const getTiposDocumentos = async () => {
 };
 
 const submit = async () => {
-    formData.value.clave = formData.value.identificacion;
     try {
-        await axios.post(`http://127.0.0.1:8000/api/${user.id}/clientes`, formData.value);
-        alert("Cliente creado con éxito");
-        this.$router.push('/clientes');
-        console.log(formData.value);
+        await axios.post(`http://127.0.0.1:8000/api/${user.id}/clientes`, formData.value);      
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Cliente creado con éxito",
+            showConfirmButton: false,
+            timer: 1500
+        });
     } catch (error) {
         console.error('Error al enviar los datos:', error);
         alert("Error al crear el cliente");

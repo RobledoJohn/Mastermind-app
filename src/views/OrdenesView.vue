@@ -40,8 +40,7 @@ export default{
                 console.log(response);
             } catch (error) {
                 console.log(error);
-            }
-            this.$router.push('/ordenes');            
+            }        
         },
         deleteOrder(id){
             const swalWithBootstrapButtons = Swal.mixin({
