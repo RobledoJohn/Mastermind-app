@@ -15,7 +15,6 @@ const getOrden = async (id_empresa, id_orden) => {
         const response = await axios.get(`https://mastermind-api.vercel.app/api/api/${id_empresa}/ingresos/${id_orden}`);
         //const response = await axios.get(`http://localhost:8000/api/${id_empresa}/ingresos/${id_orden}`);
         dataApi.value = response.data;
-        console.log(dataApi.value, id_empresa, id_orden);
     } catch (error) {
         console.log(error);
     }

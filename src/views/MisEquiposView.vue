@@ -1,26 +1,34 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
-    import axios from 'axios';
     import Header from '@/components/HeaderComponent.vue';
     import Aside from '@/components/AsideComponent.vue';
+</script>
 
-    let dataApi = ref(null);
-    let user = JSON.parse(localStorage.auth);
+<script>
+import axios from 'axios';
 
-    const getApiData = async () => {
-        try {
-            //const response = await axios.get('https://mastermind-api.vercel.app/api/api/equipos');
-            const response = await axios.get('http://127.0.0.1:8000/api/'+user.id+'/equipos/'+user.id);
-            dataApi.value = response.data;
-        } catch (error) {
-            console.error('Error fetching equipos:', error);
+export default {
+    data(){
+        return{
+             equipos : [],
+             user : JSON.parse(localStorage.auth)        
         }
-    };
+    }, 
+    mounted(){
+        this.getEquipos();
+    },
+    methods:{
+        async getEquipos(){
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/'+user.id+'/equipos/'+user.id);
+                this.equipos = response.data;
+                console.log('Equipos:', this.equipos);
+            } catch (error) {
+                console.log('Error al obtener los equipos:', error);
+            }
+        }
+    }
+};
 
-    // Llama a getOrdenes al montar el componente
-    onMounted(() => {
-        getApiData();
-    });
 </script>
 
 <template>
@@ -40,24 +48,20 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>IMEI</th>
+                            <th>Id</th>
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Tipo</th>
-                            <th>Opciones</th>
+                            <th>Cliente</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="data in dataApi" :key="data.id">
-                            <td>{{data.id}}</td>
-                            <td>{{data.modelos.marca.nombre}}</td>
-                            <td>{{data.modelos.nombre}}</td>
-                            <td>{{data.modelos.enum_tipo_equipos}}</td>
-                            <td>
-                                <router-link :to="{path:'/miEquipo/'+data.id}">
-                                    <i class="bi bi-eye eye"></i>
-                                </router-link>
-                            </td>
+                        <tr v-for="equipo in equipos" :key="equipo.id">
+                            <td>{{equipo.id}}</td>
+                            <td>{{equipo.marca}}</td>
+                            <td>{{equipo.modelos}}</td>
+                            <td>{{equipo.tipo_equipo}}</td>
+                            <td>{{equipo.cliente}}</td>
                         </tr>
                     </tbody>
                 </table>

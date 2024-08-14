@@ -5,17 +5,29 @@
 
 <script>
 
+import axios from 'axios';
+
 export default {
     data(){
         return{
-            
+            user: JSON.parse(localStorage.auth),
+            cliente : []
         }
     }, 
     mounted(){
-
+        this.getCliente(this.user.id, this.$route.params.id);
     },
     methods:{
-        
+        async getCliente(id_empresa, id_cliente){
+            console.log('id_empresa:', id_empresa);
+            console.log('id_cliente:', id_cliente);
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/'+id_empresa+'/cliente/'+id_cliente);
+                this.cliente = response.data;
+            } catch (error) {
+                console.log('Error: ', error);
+            }
+        }
     }
 };
 </script>
@@ -29,20 +41,20 @@ export default {
                 <!--ver informacion del cliente tipo card-->
                 <div class="card text-center">
                     <div class="card-header">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzo6yD6aSlWOfjPLT8HS091jJ_vIF_e-evL-aCWR0zVLJlLBnFcxNzmbpHUXpNsTC6XpQ&usqp=CAU" class="card-img-top" alt="Imagen">
+                        <img :src="cliente.avatar" class="card-img-top" alt="Imagen">
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="documentoCliente">Nombre</label>
-                            <input type="text" class="form-control" placeholder="John" disabled>
-                            <label for="documentoCliente">Identificacion</label>
-                            <input type="text" class="form-control" placeholder="10101001001" disabled>
-                            <label for="documentoCliente">Telefono</label>
-                            <input type="text" class="form-control" placeholder="3101233212" disabled>
-                            <label for="documentoCliente">Correo</label>
-                            <input type="text" class="form-control" placeholder="a@a.com" disabled>
-                            <label for="documentoCliente">Direccion</label>
-                            <input type="text" class="form-control" placeholder="Calle 1" disabled>
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" :value="cliente.nombre" disabled>
+                            <label for="identificacion">Identificacion</label>
+                            <input type="text" class="form-control" id="identificacion" :value="cliente.identificacion" disabled>
+                            <label for="telefono">Telefono</label>
+                            <input type="text" class="form-control" id="telefono" :value="cliente.telefono" disabled>
+                            <label for="correo">Correo</label>
+                            <input type="text" class="form-control" id="correo" :value="cliente.email" disabled>
+                            <label for="direccion">Direccion</label>
+                            <input type="text" class="form-control" id="direccion" :value="cliente.direccion" disabled>
                             <div>
                                 <button class="btn btn-success"><a href="/misEquipos">Ver Equipos</a></button>
                                 <button class="btn btn-primary">Editar</button>
@@ -57,4 +69,8 @@ export default {
 </template>
 
 <style>
+.card-img-top{
+    height: 200px;
+    width: 200px;
+}
 </style>
